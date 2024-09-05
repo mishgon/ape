@@ -5,18 +5,15 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ape"
 version = "0.0.0"
+dynamic = ["dependencies"]
+requires-python = ">=3.10"
 authors = [
   { name = "List of contributors: https://github.com/mishgon/ape/graphs/contributors", email = "Mikhail.Goncharov2@skoltech.ru" },
 ]
 description = "Anatomical Positional Embeddings"
 readme = "README.md"
-
+license = {file = "LICENSE"}
 keywords=["medical computer vision", "deep learning", "self-supervised learning"]
-license = {file = "LICENSE.md"}
-
-requires-python = ">=3.10"
-dynamic = ["dependencies"]
-
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
