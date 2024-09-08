@@ -1,0 +1,7 @@
+_target_: ape.model.APELightningModule
+in_channels: 1
+i_weight: 1.0
+lr: 0.01
+weight_decay: 0.000001
+warmup_steps: 10_000
+total_steps: ${trainer.max_steps}

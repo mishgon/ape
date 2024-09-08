@@ -1,0 +1,9 @@
+defaults:
+  - datamodule: default
+  - model: default
+  - trainer: default
+  - paths: default
+  - hydra: default
+  - _self_
+
+ckpt_path: null

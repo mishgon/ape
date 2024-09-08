@@ -1,0 +1,30 @@
+_target_: ape.datamodule.APEDataModule
+prepared_data_dirs: ${paths.prepared_data_dirs}
+nlst_val_size: 1000
+spatial_augmentations:
+  min_voxel_spacing: [1.0, 1.0, 2.0]
+  max_voxel_spacing: [2.0, 2.0, 4.0]
+  crop_size: [128, 128, 64]
+color_augmentations:
+  blur_or_sharpen_p: 0.8
+  blur_sigma_range: [0.0, 1.5]
+  sharpen_sigma_range: [0.0, 1.5]
+  sharpen_alpha_range: [0.0, 2.0]
+  noise_p: 0.8
+  noise_sigma_range: [0.0, 0.1]
+  invert_p: 0.0
+  brightness_p: 0.8
+  brightness_range: [0.8, 1.2]
+  contrast_p: 0.8
+  contrast_range: [0.8, 1.2]
+  gamma_p: 0.8
+  gamma_range: [0.8, 1.25]
+masking:
+  p: 0.5
+  ratio: 0.6
+  block_size: [32, 32, 16]
+num_crops_per_image: 16
+num_voxels_per_crop: 512
+num_background_voxels_per_crop: 512
+num_images_per_epoch: 3000
+num_workers: 8
