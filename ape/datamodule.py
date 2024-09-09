@@ -67,7 +67,7 @@ class APEDataModule(pl.LightningDataModule):
             spatial_augmentations: SpatialAugmentations = SpatialAugmentations(),
             color_augmentations: ColorAugmentations = ColorAugmentations(),
             masking: Masking = Masking(),
-            num_crops_per_image: int = 16,
+            num_crops_per_image: int = 8,
             num_voxels_per_crop: int = 512,
             num_background_voxels_per_crop: int = 512,
             num_images_per_epoch: int = 3000,
@@ -206,6 +206,7 @@ def _get_augmented_crops(
         num_background_voxels_per_crop: int
 ) -> Tuple:
     image_size = np.array(image.shape, dtype='int64')
+    voxel_spacing = np.array(voxel_spacing, dtype='float32')
     crop_size = np.array(spatial_augmentations.crop_size, dtype='int64')
     min_voxel_spacing = np.array(spatial_augmentations.min_voxel_spacing, dtype='float32')
     max_voxel_spacing = np.array(spatial_augmentations.max_voxel_spacing, dtype='float32')

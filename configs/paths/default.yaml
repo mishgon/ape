@@ -21,7 +21,7 @@ prepared_data_dirs:
   midrc_ricord_1a: /home/jovyan/misha/prep_data/midrc_ricord_1a
 
 # under this path all experiments' logs are saved
-logs_dir: /home/jovyan/misha/experiments/vox2vec_public
+logs_dir: /home/jovyan/misha/experiments/ape
 
 # path to the output directory, created dynamically by hydra
 # path generation pattern is specified in `configs/hydra/default.yaml`

@@ -23,7 +23,7 @@ masking:
   p: 0.5
   ratio: 0.6
   block_size: [32, 32, 16]
-num_crops_per_image: 16
+num_crops_per_image: 8
 num_voxels_per_crop: 512
 num_background_voxels_per_crop: 512
 num_images_per_epoch: 3000

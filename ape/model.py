@@ -67,7 +67,7 @@ class APELightningModule(pl.LightningModule):
 
         ape_maps_1 = self.ape(images_1, masks_1) * self.scale
         ape_maps_2 = self.ape(images_2, masks_2) * self.scale
-        stride = self.ape.stem_stride
+        stride = self.ape.fpn.stem_stride
 
         embeds_1 = batched_take_embeds_from_map(ape_maps_1, voxel_indices_1, stride)  # (N, 3)
         embeds_2 = batched_take_embeds_from_map(ape_maps_2, voxel_indices_2, stride)  # (N, 3)
