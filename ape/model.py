@@ -1,5 +1,6 @@
 from typing import Optional, Union, Tuple, Literal, Sequence
 import itertools
+import math
 
 import torch
 from torch import nn
@@ -46,6 +47,32 @@ class APE(nn.Module):
 
     def forward(self, image: torch.Tensor, mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         return self.final_act(self.head(image, self.fpn(image, mask), upsample=False))
+
+    @staticmethod
+    def to_sin_cos(ape_maps: torch.Tensor, embed_dim: int = 24) -> torch.Tensor:
+        """Computes sin-cos anatomical positional embeddings.
+
+        Args:
+            ape_maps (torch.Tensor):
+                Tensor of size ``(n, 3, h, w, d)``.
+            embed_dim (int, optional):
+                Defaults to 24.
+
+        Returns:
+            torch.Tensor:
+                Tensor of size ``(n, embed_dim, h, w, d)``.
+        """
+        assert ape_maps.shape[1] == 3
+        assert embed_dim % 6 == 0
+
+        frequencies = 2 ** torch.arange(-1, embed_dim // 6 - 1).to(ape_maps)
+        ape_maps = 2 * math.pi * ape_maps.unsqueeze(-1) * frequencies
+        ape_maps = torch.cat([ape_maps.sin(), ape_maps.cos()], dim=-1)
+        ape_maps = ape_maps.movedim(-1, 1).flatten(1, 2)
+
+        assert ape_maps.shape[1] == embed_dim
+
+        return ape_maps
 
 
 class APELightningModule(pl.LightningModule):
