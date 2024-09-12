@@ -33,7 +33,7 @@ Homepage = "https://github.com/mishgon/ape"
 Issues = "https://github.com/mishgon/ape/issues"
 
 [tool.setuptools.packages.find]
-where = ["ape"]
+include = ["ape"]
 namespaces = false
 
 [tool.setuptools.dynamic]
