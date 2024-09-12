@@ -11,11 +11,11 @@ from medimm.fpn_3d import FPN3d, FPNLinearDenseHead3d
 
 
 class APE(nn.Module):
-    def __init__(self, in_channels: int = 1):
+    def __init__(self, pretrained: bool = True):
         super().__init__()
 
         self.fpn = FPN3d(
-            in_channels=in_channels,
+            in_channels=1,
             stem_stride=(4, 4, 2),
             out_channels=(128, 256, 512, 1024),
             depths=((3, 1), (3, 1), (27, 1), 3),
@@ -33,7 +33,17 @@ class APE(nn.Module):
             fpn_out_channels=self.fpn.out_channels
         )
         self.final_act = nn.Sigmoid()
-    
+
+        if pretrained:
+            from huggingface_hub import hf_hub_download
+
+            weights_path = hf_hub_download(
+                repo_id='mishgon/ape',
+                filename=f'ape.pt',
+                revision='ee05e8e411fa96803b16260b124c2490459f08c2'
+            )
+            self.load_state_dict(torch.load(weights_path))
+
     def forward(self, image: torch.Tensor, mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         return self.final_act(self.head(image, self.fpn(image, mask), upsample=False))
 
@@ -41,7 +51,6 @@ class APE(nn.Module):
 class APELightningModule(pl.LightningModule):
     def __init__(
             self,
-            in_channels: int = 1,
             i_weight: float = 1.0,
             lr: float = 3e-4,
             weight_decay: float = 1e-6,
@@ -52,7 +61,7 @@ class APELightningModule(pl.LightningModule):
 
         self.save_hyperparameters()
 
-        self.ape = APE(in_channels)
+        self.ape = APE(pretrained=False)
         self.scale = nn.Parameter(torch.ones(3, 1, 1, 1))
         self.i_weight = i_weight
         self.lr = lr
