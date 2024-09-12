@@ -142,15 +142,15 @@ class _APEDataset(Dataset):
         self.num_background_voxels_per_crop = num_background_voxels_per_crop
         self.num_images_per_epoch = num_images_per_epoch
 
-        nlst_image_dirpaths, _ = train_test_split(list(Path(prepared_data_dirs.nlst).iterdir()),
+        nlst_image_dirpaths, _ = train_test_split(sorted(Path(prepared_data_dirs.nlst).iterdir()),
                                                   test_size=nlst_val_size, random_state=random_seed)
         self.image_dirpaths = (
             nlst_image_dirpaths
-            + list(Path(prepared_data_dirs.amos_ct_labeled_train).iterdir())
-            + list(Path(prepared_data_dirs.amos_ct_unlabeled_train).iterdir())
-            + list(Path(prepared_data_dirs.abdomen_atlas).iterdir())
-            + list(Path(prepared_data_dirs.flare23_labeled_train).iterdir())
-            + list(Path(prepared_data_dirs.flare23_unlabeled_train).iterdir())
+            + sorted(Path(prepared_data_dirs.amos_ct_labeled_train).iterdir())
+            + sorted(Path(prepared_data_dirs.amos_ct_unlabeled_train).iterdir())
+            + sorted(Path(prepared_data_dirs.abdomen_atlas).iterdir())
+            + sorted(Path(prepared_data_dirs.flare23_labeled_train).iterdir())
+            + sorted(Path(prepared_data_dirs.flare23_unlabeled_train).iterdir())
         )
 
     def __len__(self):
