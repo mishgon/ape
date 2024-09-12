@@ -32,8 +32,9 @@ classifiers = [
 Homepage = "https://github.com/mishgon/ape"
 Issues = "https://github.com/mishgon/ape/issues"
 
-[tool.setuptools]
-packages = ["ape"]
+[tool.setuptools.packages.find]
+where = ["ape"]
+namespaces = false
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
