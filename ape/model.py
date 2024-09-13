@@ -17,12 +17,12 @@ class APE(nn.Module):
 
         self.fpn = FPN3d(
             in_channels=1,
-            stem_stride=(4, 4, 2),
-            out_channels=(128, 256, 512, 1024),
-            depths=((3, 1), (3, 1), (27, 1), 3),
-            stem_kernel_size=(4, 4, 2),
+            stem_stride=4,
+            out_channels=(96, 192, 384, 768),
+            depths=((3, 1), (3, 1), (9, 1), 3),
+            stem_kernel_size=4,
             stem_padding=0,
-            drop_path_rate=0.1,
+            drop_path_rate=0.0,
             final_ln=True,
             final_affine=True,
             final_gelu=True,

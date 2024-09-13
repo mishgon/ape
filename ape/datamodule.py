@@ -30,9 +30,9 @@ class PreparedDataDirs:
 
 @dataclass
 class SpatialAugmentations:
-    min_voxel_spacing: Tuple[float, float, float] = (1.0, 1.0, 2.0)
-    max_voxel_spacing: Tuple[float, float, float] = (4.0, 4.0, 8.0)
-    crop_size: Tuple[int, int, int] = (128, 128, 64)
+    min_voxel_spacing: Tuple[float, float, float] = (1.0, 1.0, 1.5)
+    max_voxel_spacing: Tuple[float, float, float] = (4.0, 4.0, 6.0)
+    crop_size: Tuple[int, int, int] = (96, 96, 64)
 
 
 @dataclass
@@ -56,7 +56,7 @@ class ColorAugmentations:
 class Masking:
     p: float = 0.5
     ratio: float = 0.6
-    block_size: Tuple[int, int, int] = (32, 32, 16)
+    block_size: Tuple[int, int, int] = (24, 24, 16)
 
 
 class APEDataModule(pl.LightningDataModule):
@@ -68,8 +68,8 @@ class APEDataModule(pl.LightningDataModule):
             color_augmentations: ColorAugmentations = ColorAugmentations(),
             masking: Masking = Masking(),
             num_crops_per_image: int = 8,
-            num_voxels_per_crop: int = 512,
-            num_background_voxels_per_crop: int = 512,
+            num_voxels_per_crop: int = 1024,
+            num_background_voxels_per_crop: int = 1024,
             num_images_per_epoch: int = 3000,
             num_workers: int = 0,
             prefetch_factor: Optional[int] = None,
@@ -149,8 +149,8 @@ class _APEDataset(Dataset):
             + sorted(Path(prepared_data_dirs.amos_ct_labeled_train).iterdir())
             + sorted(Path(prepared_data_dirs.amos_ct_unlabeled_train).iterdir())
             + sorted(Path(prepared_data_dirs.abdomen_atlas).iterdir())
-            + sorted(Path(prepared_data_dirs.flare23_labeled_train).iterdir())
-            + sorted(Path(prepared_data_dirs.flare23_unlabeled_train).iterdir())
+            # + sorted(Path(prepared_data_dirs.flare23_labeled_train).iterdir())
+            # + sorted(Path(prepared_data_dirs.flare23_unlabeled_train).iterdir())
         )
 
     def __len__(self):
