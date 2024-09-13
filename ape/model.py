@@ -19,6 +19,7 @@ class APE(nn.Module):
             in_channels=1,
             stem_stride=4,
             out_channels=(96, 192, 384, 768),
+            hidden_factors=4.0,
             depths=((3, 1), (3, 1), (9, 1), 3),
             stem_kernel_size=4,
             stem_padding=0,
