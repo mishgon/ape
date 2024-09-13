@@ -27,4 +27,5 @@ num_crops_per_image: 8
 num_voxels_per_crop: 1024
 num_background_voxels_per_crop: 1024
 num_images_per_epoch: 3000
-num_workers: 8
+num_workers: 16
+prefetch_factor: 4
