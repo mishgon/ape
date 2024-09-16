@@ -42,7 +42,7 @@ class APE(nn.Module):
             weights_path = hf_hub_download(
                 repo_id='mishgon/ape',
                 filename=f'ape.pt',
-                revision='ee05e8e411fa96803b16260b124c2490459f08c2'
+                revision='a743d914ca8ba47d4e7371c6906c40c976437685'
             )
             self.load_state_dict(torch.load(weights_path))
 
